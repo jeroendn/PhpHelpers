@@ -1,6 +1,6 @@
 <?php
 
-namespace jeroendn\PhpHelpers\ArrayHelper;
+namespace jeroendn\PhpHelpers;
 
 class ArrayHelper
 {

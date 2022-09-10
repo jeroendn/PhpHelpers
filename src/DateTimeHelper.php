@@ -1,6 +1,6 @@
 <?php
 
-namespace jeroendn\PhpHelpers\DateTimeHelper;
+namespace jeroendn\PhpHelpers;
 
 class DateTimeHelper
 {
