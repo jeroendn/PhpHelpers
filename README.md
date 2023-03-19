@@ -1,5 +1,5 @@
 # PhpHelpers
-A package containing some usefull functions within classes.
+A package containing some useful functions within classes.
 
 ## Installation
 ```shell
