@@ -19,6 +19,6 @@ class CaseHelper
      */
     public static function snakeToCamel(string $string): string
     {
-        return lcfirst(self::snakeToCamel($string));
+        return lcfirst(self::snakeToPascal($string));
     }
 }
