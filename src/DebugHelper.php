@@ -19,9 +19,18 @@ class DebugHelper
      * @param $variable
      * @return void
      */
+    public static function dump($variable): void
+    {
+        dump($variable);
+    }
+
+    /**
+     * Prints a variable to the screen and stops execution of script.
+     * @param $variable
+     * @return void
+     */
     public static function dd($variable): void
     {
-        echo '<pre>' . print_r($variable, true) . '</pre>';
-        die;
+        dd($variable);
     }
 }
