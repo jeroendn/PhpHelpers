@@ -11,9 +11,9 @@ composer require jeroendn/php-helpers
 use jeroendn\PhpHelpers\ArrayHelper;
 
 $array = [
-    (new Class)->name = 'John',
-    (new Class)->name = 'Hans',
-    (new Class)->name = 'Piet',
+    (new stdClass)->name = 'John',
+    (new stdClass)->name = 'Hans',
+    (new stdClass)->name = 'Piet',
 ]
 
 ArrayHelper::sortArrayByProperty($array, 'name', true);
