@@ -8,7 +8,7 @@ composer require jeroendn/php-helpers
 
 ## How to use
 ```php
-use jeroendn\PhpHelpers\ArrayHelper;
+use jeroendn\PhpHelpers\Helper\ArrayHelper;
 
 $array = [
     (new stdClass)->name = 'John',
@@ -16,7 +16,7 @@ $array = [
     (new stdClass)->name = 'Piet',
 ]
 
-ArrayHelper::sortArrayByProperty($array, 'name', true);
+ArrayHelper::sortByProperty($array, 'name', true);
 
 echo $array[0]->name; // Hans
 ```
@@ -24,5 +24,5 @@ echo $array[0]->name; // Hans
 ## Development
 ### Run tests
 ```shell
-./vendor/bin/phpunit
+./vendor/bin/phpunit tests
 ```

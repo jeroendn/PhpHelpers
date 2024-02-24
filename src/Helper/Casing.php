@@ -1,8 +1,8 @@
 <?php
 
-namespace jeroendn\PhpHelpers;
+namespace jeroendn\PhpHelpers\Helper;
 
-class CaseHelper
+class Casing
 {
     /**
      * @param string $string

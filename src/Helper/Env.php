@@ -1,17 +1,17 @@
 <?php
 
-namespace jeroendn\PhpHelpers;
+namespace jeroendn\PhpHelpers\Helper;
 
-class EnvHelper
+class Env
 {
     /**
      * Loads the .env variables to the server environment. Accessible via getenv('EXAMPLE')
      * @param string $filename Overwrite filename
      * @return void
      */
-    public static function loadEnv(string $filename = '.env'): void
+    public static function load(string $filename = '.env'): void
     {
-        $env = self::getEnvVars($filename);
+        $env = self::getVars($filename);
 
         foreach ($env as $key => $value) {
             putenv("$key=$value");
@@ -23,7 +23,7 @@ class EnvHelper
      * @param string $filename
      * @return array
      */
-    public static function getEnvVars(string $filename = '.env'): array
+    public static function getVars(string $filename = '.env'): array
     {
         return parse_ini_file($filename) ?? [];
     }

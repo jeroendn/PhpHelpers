@@ -1,36 +1,36 @@
 <?php
 
-namespace jeroendn\PhpHelpers;
+namespace jeroendn\PhpHelpers\Helper;
 
-class DebugHelper
+class Debug
 {
     /**
      * Prints a variable to the screen.
-     * @param $variable
+     * @param mixed $variable
      * @return void
      */
-    public static function d($variable): void
+    public static function raw(mixed $variable): void
     {
         echo '<pre>' . print_r($variable, true) . '</pre>';
     }
 
     /**
      * Prints a variable to the screen and stops execution of script.
-     * @param $variable
+     * @param mixed ...$vars
      * @return void
      */
-    public static function dump($variable): void
+    public static function d(mixed ...$vars): void
     {
-        dump($variable);
+        dump($vars);
     }
 
     /**
      * Prints a variable to the screen and stops execution of script.
-     * @param $variable
-     * @return void
+     * @param mixed ...$vars
+     * @return never
      */
-    public static function dd($variable): void
+    public static function dd(mixed ...$vars): never
     {
-        dd($variable);
+        dd($vars);
     }
 }
