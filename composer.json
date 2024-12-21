@@ -3,7 +3,7 @@
   "description": "A package containing some useful functions within classes.",
   "type": "library",
   "require": {
-    "php": "^8.*",
+    "php": "^8.2",
     "ext-curl": "*",
     "symfony/var-dumper": "*"
   },
