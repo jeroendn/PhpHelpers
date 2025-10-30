@@ -21,5 +21,8 @@
     "psr-4": {
       "jeroendn\\PhpHelpers\\": "src"
     }
+  },
+  "config": {
+    "sort-packages": true
   }
 }
