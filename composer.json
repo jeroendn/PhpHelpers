@@ -1,28 +1,32 @@
 {
   "name": "jeroendn/php-helpers",
-  "description": "A package containing some useful functions within classes.",
-  "type": "library",
-  "require": {
-    "php": "^8.2",
-    "ext-curl": "*",
-    "symfony/var-dumper": "*"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^9"
-  },
+  "description": "A package containing classes and scripts to use across multiple projects.",
   "license": "MIT",
+  "type": "library",
   "authors": [
     {
       "name": "Jeroen de Nijs",
       "email": "info@jeroendn.nl"
     }
   ],
+  "require": {
+    "php": "^8.2",
+    "ext-curl": "*",
+    "symfony/var-dumper": "*"
+  },
+  "require-dev": {
+    "ergebnis/composer-normalize": "^2.52",
+    "phpunit/phpunit": "^9"
+  },
   "autoload": {
     "psr-4": {
       "jeroendn\\PhpHelpers\\": "src"
     }
   },
   "config": {
+    "allow-plugins": {
+      "ergebnis/composer-normalize": true
+    },
     "sort-packages": true
   }
 }
