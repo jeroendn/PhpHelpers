@@ -43,6 +43,16 @@ in, so the same script serves projects with different setups.
 
 ## Development
 
+Day-to-day commands run inside the `php_phphelpers` container through the `./develop` wrapper (`develop.cmd` makes the
+same commands work from PowerShell/cmd on Windows):
+
+```shell
+./develop up -d --build  # build + start the container
+./develop install        # composer install
+./develop cqa            # run the code quality assurance gate
+./develop help           # list all commands
+```
+
 ### Run tests
 
 ```shell
