@@ -1,9 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
 namespace jeroendn\PhpHelpers\Wrapper;
 
-use \DateTime as PhpDateTime;
+use DateTime as PhpDateTime;
 use DateTimeImmutable;
 use Exception;
 
@@ -18,8 +19,7 @@ class DateTime
     {
         if (!$this->isFrozen()) {
             $this->dateTime = new PhpDateTime($dateTime);
-        }
-        else {
+        } else {
             $this->dateTime = new DateTimeImmutable($dateTime);
         }
     }
