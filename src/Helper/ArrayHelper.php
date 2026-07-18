@@ -13,7 +13,7 @@ class ArrayHelper
      * @param bool   $asc
      * @return void
      */
-    public static function sortByProperty(array &$array, string $property, bool $asc = true): void
+    public static function sortObjectsByProperty(array &$array, string $property, bool $asc = true): void
     {
         if ($asc) {
             usort($array, function ($a, $b) use ($property) {
@@ -35,14 +35,14 @@ class ArrayHelper
      * @param bool     $asc
      * @return void
      */
-    public static function sortByProperties(array &$array, array $properties, bool $asc = true): void
+    public static function sortObjectsByProperties(array &$array, array $properties, bool $asc = true): void
     {
         foreach ($properties as $property) {
             if (!is_string($property)) {
                 continue; // Do not allow non-string properties
             }
 
-            self::sortByProperty($array, $property, $asc);
+            self::sortObjectsByProperty($array, $property, $asc);
         }
     }
 }

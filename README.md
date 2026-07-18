@@ -21,7 +21,7 @@ $array = [
     (new stdClass)->name = 'Piet',
 ]
 
-ArrayHelper::sortByProperty($array, 'name', true);
+ArrayHelper::sortObjectsByProperty($array, 'name', true);
 
 echo $array[0]->name; // Hans
 ```
