@@ -23,6 +23,9 @@
       "jeroendn\\PhpHelpers\\": "src"
     }
   },
+  "bin": [
+    "bin/code-quality-assurance.sh"
+  ],
   "config": {
     "allow-plugins": {
       "ergebnis/composer-normalize": true
