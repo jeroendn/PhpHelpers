@@ -17,6 +17,7 @@
   "require-dev": {
     "ergebnis/composer-normalize": "^2.52",
     "friendsofphp/php-cs-fixer": "^3.95",
+    "phpstan/phpstan": "^2.2",
     "phpunit/phpunit": "^13.2",
     "rector/rector": "^2.5"
   },
@@ -37,6 +38,8 @@
   "scripts": {
     "cs-check": "./vendor/bin/php-cs-fixer check",
     "cs-fix": "./vendor/bin/php-cs-fixer fix",
+    "phpstan": "./vendor/bin/phpstan analyse",
+    "phpstan-baseline": "./vendor/bin/phpstan analyse --generate-baseline",
     "phpunit": "./vendor/bin/phpunit tests",
     "rector-check": "./vendor/bin/rector --dry-run",
     "rector-fix": "./vendor/bin/rector"
