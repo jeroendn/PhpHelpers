@@ -40,7 +40,7 @@
     "cs-fix": "./vendor/bin/php-cs-fixer fix",
     "phpstan": "./vendor/bin/phpstan analyse",
     "phpstan-baseline": "./vendor/bin/phpstan analyse --generate-baseline",
-    "phpunit": "./vendor/bin/phpunit tests",
+    "phpunit": "./vendor/bin/phpunit",
     "rector-check": "./vendor/bin/rector --dry-run",
     "rector-fix": "./vendor/bin/rector"
   }

@@ -95,7 +95,7 @@ else
     else
         cqa_skip "composer normalize" "ergebnis/composer-normalize is not installed"
     fi
-    cqa_step "composer validate" "${COMPOSER[@]}" validate
+    cqa_step "composer validate" "${COMPOSER[@]}" validate --strict
 fi
 
 # 3. rector
