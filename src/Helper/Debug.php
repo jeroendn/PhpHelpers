@@ -17,7 +17,7 @@ class Debug
     }
 
     /**
-     * Prints a variable to the screen and stops execution of the script.
+     * Prints variables to the screen.
      * @param mixed ...$vars
      * @return void
      */
@@ -27,7 +27,7 @@ class Debug
     }
 
     /**
-     * Prints a variable to the screen and stops execution of the script.
+     * Prints variables to the screen and stops execution of the script.
      * @param mixed ...$vars
      * @return never
      */

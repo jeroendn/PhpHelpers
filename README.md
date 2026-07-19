@@ -1,6 +1,6 @@
 # PhpHelpers
 
-A package containing some useful functions within classes.
+PHP helper classes and quality-tooling scripts to use across multiple projects.
 
 ## Installation
 
@@ -12,16 +12,24 @@ composer require jeroendn/php-helpers
 
 ### Classes
 
+| Class                 | Purpose                                                       |
+|-----------------------|---------------------------------------------------------------|
+| `Helper\ArrayHelper`  | Sort arrays of objects by one or more properties              |
+| `Helper\Casing`       | Convert strings between snake_case, camelCase and PascalCase  |
+| `Helper\Debug`        | Dump variables (`raw`, `d`, `dd`)                             |
+| `Helper\Env`          | Load `.env` variables into the server environment             |
+| `Wrapper\DateTime`    | DateTime wrapper that can freeze into an immutable and back   |
+
 ```php
 use jeroendn\PhpHelpers\Helper\ArrayHelper;
 
 $array = [
-    (new stdClass)->name = 'John',
-    (new stdClass)->name = 'Hans',
-    (new stdClass)->name = 'Piet',
-]
+    (object) ['name' => 'John'],
+    (object) ['name' => 'Hans'],
+    (object) ['name' => 'Piet'],
+];
 
-ArrayHelper::sortObjectsByProperty($array, 'name', true);
+ArrayHelper::sortObjectsByProperty($array, 'name');
 
 echo $array[0]->name; // Hans
 ```
@@ -56,5 +64,5 @@ same commands work from PowerShell/cmd on Windows):
 ### Run tests
 
 ```shell
-docker exec -it php_phphelpers ./vendor/bin/phpunit tests
+./develop composer phpunit
 ```

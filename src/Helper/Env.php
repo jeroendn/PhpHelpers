@@ -21,7 +21,7 @@ class Env
     }
 
     /**
-     * Returns the environment variables form the .env file.
+     * Returns the environment variables from the .env file.
      * Returns an empty array when the file is missing or cannot be parsed.
      * @param string $filename
      * @return array

@@ -55,6 +55,7 @@ usage() {
 Usage: ./develop <command>
 
 Dev commands (executed inside the php_phphelpers container):
+  checkout, c                  set up a fresh checkout
   install                      composer install
   update                       composer update
   composer <args>              run any composer command, e.g. ./develop composer require foo/bar
