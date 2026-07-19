@@ -1,2 +1,13 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Bash scripts executed via their shebang inside the Linux container. They must
+# stay LF even when a Windows checkout uses core.autocrlf=true: with CRLF the
+# kernel reads the interpreter as "bash\r" and fails with "No such file or
+# directory". eol=lf overrides core.autocrlf for exactly these files.
+develop                      text eol=lf
+bin/code-quality-assurance.sh text eol=lf
+
+# The Windows shim is a cmd batch file; cmd.exe parses labels/goto unreliably
+# with bare LF, so pin it to CRLF — the opposite of the bash scripts above.
+develop.cmd text eol=crlf

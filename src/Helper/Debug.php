@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace jeroendn\PhpHelpers\Helper;
@@ -16,7 +17,7 @@ class Debug
     }
 
     /**
-     * Prints a variable to the screen and stops execution of script.
+     * Prints variables to the screen.
      * @param mixed ...$vars
      * @return void
      */
@@ -26,7 +27,7 @@ class Debug
     }
 
     /**
-     * Prints a variable to the screen and stops execution of script.
+     * Prints variables to the screen and stops execution of the script.
      * @param mixed ...$vars
      * @return never
      */

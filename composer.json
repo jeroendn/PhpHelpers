@@ -1,28 +1,47 @@
 {
   "name": "jeroendn/php-helpers",
-  "description": "A package containing some useful functions within classes.",
-  "type": "library",
-  "require": {
-    "php": "^8.2",
-    "ext-curl": "*",
-    "symfony/var-dumper": "*"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^9"
-  },
+  "description": "A package containing classes and scripts to use across multiple projects.",
   "license": "MIT",
+  "type": "library",
   "authors": [
     {
       "name": "Jeroen de Nijs",
       "email": "info@jeroendn.nl"
     }
   ],
+  "require": {
+    "php": "^8.5",
+    "ext-curl": "*",
+    "symfony/var-dumper": "^8.0"
+  },
+  "require-dev": {
+    "ergebnis/composer-normalize": "^2.52",
+    "friendsofphp/php-cs-fixer": "^3.95",
+    "phpstan/phpstan": "^2.2",
+    "phpunit/phpunit": "^13.2",
+    "rector/rector": "^2.5"
+  },
   "autoload": {
     "psr-4": {
       "jeroendn\\PhpHelpers\\": "src"
     }
   },
+  "bin": [
+    "bin/code-quality-assurance.sh"
+  ],
   "config": {
+    "allow-plugins": {
+      "ergebnis/composer-normalize": true
+    },
     "sort-packages": true
+  },
+  "scripts": {
+    "cs-check": "./vendor/bin/php-cs-fixer check",
+    "cs-fix": "./vendor/bin/php-cs-fixer fix",
+    "phpstan": "./vendor/bin/phpstan analyse",
+    "phpstan-baseline": "./vendor/bin/phpstan analyse --generate-baseline",
+    "phpunit": "./vendor/bin/phpunit",
+    "rector-check": "./vendor/bin/rector --dry-run",
+    "rector-fix": "./vendor/bin/rector"
   }
 }

@@ -1,0 +1,11 @@
+services:
+  php_phphelpers:
+    hostname: phphelpers
+    build: docker/php/.
+    image: php_phphelpers:alpine
+    container_name: php_phphelpers
+    restart: unless-stopped
+    environment:
+      TZ: Europe/Amsterdam
+    volumes:
+      - ./:/var/www/html
