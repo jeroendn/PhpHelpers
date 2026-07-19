@@ -15,5 +15,9 @@ return new Config()
         new Finder()
             ->in(__DIR__ . '/src')
             ->in(__DIR__ . '/tests')
-            ->name('*.php'),
+            ->name('*.php')
+            ->append([
+                __FILE__, // Include this config file
+                __DIR__ . '/rector.php',
+            ]),
     );
