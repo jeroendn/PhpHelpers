@@ -17,10 +17,12 @@ class DateTime
      */
     public function __construct(PhpDateTime|DateTimeImmutable|null $dateTime = null)
     {
-        if (!$this->isFrozen()) {
-            $this->dateTime = new PhpDateTime($dateTime);
+        if ($dateTime === null) {
+            $this->dateTime = new PhpDateTime();
+        } elseif ($dateTime instanceof DateTimeImmutable) {
+            $this->dateTime = DateTimeImmutable::createFromInterface($dateTime);
         } else {
-            $this->dateTime = new DateTimeImmutable($dateTime);
+            $this->dateTime = PhpDateTime::createFromInterface($dateTime);
         }
     }
 
@@ -29,23 +31,17 @@ class DateTime
         return $this->dateTime;
     }
 
-    /**
-     * @throws Exception
-     */
     public function freeze(): void
     {
         if (!$this->isFrozen()) {
-            $this->dateTime = new DateTimeImmutable($this->dateTime);
+            $this->dateTime = DateTimeImmutable::createFromInterface($this->dateTime);
         }
     }
 
-    /**
-     * @throws Exception
-     */
     public function unfreeze(): void
     {
         if ($this->isFrozen()) {
-            $this->dateTime = new PhpDateTime($this->dateTime);
+            $this->dateTime = PhpDateTime::createFromInterface($this->dateTime);
         }
     }
 
