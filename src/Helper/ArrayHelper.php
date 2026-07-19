@@ -17,13 +17,9 @@ class ArrayHelper
     public static function sortObjectsByProperty(array &$array, string $property, bool $asc = true): void
     {
         if ($asc) {
-            usort($array, function ($a, $b) use ($property) {
-                return $a->$property <=> $b->$property;
-            });
+            usort($array, fn($a, $b) => $a->$property <=> $b->$property);
         } else {
-            usort($array, function ($a, $b) use ($property) {
-                return $b->$property <=> $a->$property;
-            });
+            usort($array, fn($a, $b) => $b->$property <=> $a->$property);
         }
     }
 
