@@ -20,6 +20,7 @@
 #   4. php-cs-fixer        needs vendor/bin/php-cs-fixer + .php-cs-fixer(.dist).php
 #   5. phpstan             needs vendor/bin/phpstan + phpstan.neon(.dist) or phpstan.dist.neon
 #   6. phpunit             needs vendor/bin/phpunit + phpunit.xml(.dist), phpunit.dist.xml or tests/
+#   7. npm build           needs npm + a "build" script in package.json
 #
 # Rector runs before php-cs-fixer so cs-fixer can clean up rector's rewrites.
 # Note this is a "prepare", not a pure "check": normalize, rector and cs-fixer
@@ -142,6 +143,18 @@ if [ -f vendor/bin/phpunit ]; then
     fi
 else
     cqa_skip "phpunit" "not installed"
+fi
+
+# 7. npm build
+if command -v npm >/dev/null 2>&1; then
+    # `npm pkg get` prints {} when the key does not exist in package.json.
+    if [ -f package.json ] && [ "$(npm pkg get scripts.build 2>/dev/null)" != '{}' ]; then
+        cqa_step "npm build" npm run build
+    else
+        cqa_skip "npm build" "no package.json with a build script found"
+    fi
+else
+    cqa_skip "npm build" "not installed"
 fi
 
 printf '\n%b\n' "${SUCCESS}✓ code-quality-assurance: ${RAN} step(s) passed, ${SKIPPED} skipped${NC}"

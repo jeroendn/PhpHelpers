@@ -74,16 +74,8 @@ case "${1:-}" in
         usage
         ;;
     checkout|c)
-        run ./develop install
+        run ./develop composer install
         ok "Checkout finished"
-        ;;
-    install)
-        run composer install
-        ok "Installation finished"
-        ;;
-    update)
-        run composer update
-        ok "Update finished"
         ;;
     composer)
         shift
