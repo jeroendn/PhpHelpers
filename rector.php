@@ -11,4 +11,5 @@ return RectorConfig::configure()
         __DIR__ . '/rector.php',
         __DIR__ . '/.php-cs-fixer.dist.php',
     ])
-    ->withPhpSets();
+    ->withPhpSets()
+    ->withImportNames();
