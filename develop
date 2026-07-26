@@ -55,9 +55,7 @@ usage() {
 Usage: ./develop <command>
 
 Dev commands (executed inside the php_phphelpers container):
-  checkout, c                  set up a fresh checkout
-  install                      composer install
-  update                       composer update
+  checkout, c                  composer install
   composer <args>              run any composer command, e.g. ./develop composer require foo/bar
   code-quality-assurance, cqa  quality gate: bin/code-quality-assurance.sh
 
@@ -74,15 +72,24 @@ case "${1:-}" in
         usage
         ;;
     checkout|c)
-        run ./develop composer install
-        ok "Checkout finished"
+        if run composer install; then
+            ok "Checkout finished"
+        else
+            err "Checkout failed"
+            exit 1
+        fi
+        ;;
+    code-quality-assurance|cqa)
+        if run ./bin/code-quality-assurance.sh; then
+            ok "Code quality assurance completed"
+        else
+            err "Code quality assurance failed"
+            exit 1
+        fi
         ;;
     composer)
         shift
         run composer "$@"
-        ;;
-    code-quality-assurance|cqa)
-        run ./bin/code-quality-assurance.sh
         ;;
     *)
         # Default: proxy to docker compose (host only).

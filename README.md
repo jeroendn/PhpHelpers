@@ -56,7 +56,7 @@ same commands work from PowerShell/cmd on Windows):
 
 ```shell
 ./develop up -d --build  # build + start the container
-./develop install        # composer install
+./develop checkout       # composer install
 ./develop cqa            # run the code quality assurance gate
 ./develop help           # list all commands
 ```
