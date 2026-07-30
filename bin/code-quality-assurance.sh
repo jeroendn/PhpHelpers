@@ -9,17 +9,17 @@
 #   vendor/bin/code-quality-assurance.sh
 #
 # Steps run in sequence and the FIRST failure aborts. Every step is optional:
-# it only runs when the tool (and the configuration it needs) is present in
-# the project the script is invoked in, so one script serves projects with
-# different setups. Configuration always comes from the project, never from
-# this package.
+# the tool steps (3-6) run through the project's composer script definitions
+# ("scripts" in composer.json), so a step only runs when the project defines
+# the matching script — and the project's definition controls the exact
+# command, config and flags. One script serves projects with different setups.
 #
 #   1. composer normalize  needs vendor/ergebnis/composer-normalize
 #   2. composer validate   always (a composer.json is required anyway)
-#   3. rector              needs vendor/bin/rector + rector.php
-#   4. php-cs-fixer        needs vendor/bin/php-cs-fixer + .php-cs-fixer(.dist).php
-#   5. phpstan             needs vendor/bin/phpstan + phpstan.neon(.dist) or phpstan.dist.neon
-#   6. phpunit             needs vendor/bin/phpunit + phpunit.xml(.dist), phpunit.dist.xml or tests/
+#   3. rector              needs a "rector-fix" composer script
+#   4. php-cs-fixer        needs a "cs-fix" composer script
+#   5. phpstan             needs a "phpstan" composer script
+#   6. phpunit             needs a "phpunit" composer script
 #   7. npm build           needs npm + a "build" script in package.json
 #
 # Rector runs before php-cs-fixer so cs-fixer can clean up rector's rewrites.
@@ -74,16 +74,27 @@ cqa_skip() {
     printf '%b\n' "${WARN}– ${1} skipped: ${2}${NC}"
 }
 
-# Echo the first of the given files that exists in the project root.
-first_existing() {
-    local f
-    for f in "$@"; do
-        if [ -f "$f" ]; then
-            echo "$f"
-            return 0
-        fi
-    done
-    return 1
+# Output of `composer run-script --list`: one indented script name per line.
+COMPOSER_SCRIPTS=""
+if [ "${#COMPOSER[@]}" -gt 0 ]; then
+    COMPOSER_SCRIPTS="$("${COMPOSER[@]}" run-script --list 2>/dev/null)"
+fi
+
+has_composer_script() {
+    printf '%s\n' "$COMPOSER_SCRIPTS" | grep -qE "^[[:space:]]+${1}([[:space:]]|$)"
+}
+
+# Run a step via the project's composer script definition, or skip when the
+# project does not define it.
+composer_script_step() {
+    local label="$1" script="$2"
+    if [ "${#COMPOSER[@]}" -eq 0 ]; then
+        cqa_skip "$label" "no composer executable found"
+    elif has_composer_script "$script"; then
+        cqa_step "$label" "${COMPOSER[@]}" run-script "$script"
+    else
+        cqa_skip "$label" "no '${script}' composer script defined"
+    fi
 }
 
 # 1 + 2. composer normalize + validate
@@ -100,50 +111,16 @@ else
 fi
 
 # 3. rector
-if [ -f vendor/bin/rector ]; then
-    if CONFIG="$(first_existing rector.php rector.dist.php)"; then
-        cqa_step "rector" vendor/bin/rector process --config "$CONFIG"
-    else
-        cqa_skip "rector" "no rector.php found"
-    fi
-else
-    cqa_skip "rector" "not installed"
-fi
+composer_script_step "rector" rector-fix
 
 # 4. php-cs-fixer
-if [ -f vendor/bin/php-cs-fixer ]; then
-    if CONFIG="$(first_existing .php-cs-fixer.php .php-cs-fixer.dist.php)"; then
-        cqa_step "cs-fixer" vendor/bin/php-cs-fixer fix --config "$CONFIG"
-    else
-        cqa_skip "cs-fixer" "no .php-cs-fixer(.dist).php found"
-    fi
-else
-    cqa_skip "cs-fixer" "not installed"
-fi
+composer_script_step "cs-fixer" cs-fix
 
 # 5. phpstan
-if [ -f vendor/bin/phpstan ]; then
-    if CONFIG="$(first_existing phpstan.neon phpstan.neon.dist phpstan.dist.neon)"; then
-        cqa_step "phpstan" vendor/bin/phpstan analyse --configuration "$CONFIG" --memory-limit=2G
-    else
-        cqa_skip "phpstan" "no phpstan.neon(.dist) or phpstan.dist.neon found"
-    fi
-else
-    cqa_skip "phpstan" "not installed"
-fi
+composer_script_step "phpstan" phpstan
 
 # 6. phpunit
-if [ -f vendor/bin/phpunit ]; then
-    if first_existing phpunit.xml phpunit.xml.dist phpunit.dist.xml >/dev/null; then
-        cqa_step "phpunit" vendor/bin/phpunit
-    elif [ -d tests ]; then
-        cqa_step "phpunit" vendor/bin/phpunit tests
-    else
-        cqa_skip "phpunit" "no phpunit.xml(.dist), phpunit.dist.xml or tests/ directory found"
-    fi
-else
-    cqa_skip "phpunit" "not installed"
-fi
+composer_script_step "phpunit" phpunit
 
 # 7. npm build
 if command -v npm >/dev/null 2>&1; then
