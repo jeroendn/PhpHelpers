@@ -45,9 +45,10 @@ project requiring this package:
 vendor/bin/code-quality-assurance.sh
 ```
 
-It runs composer normalize, composer validate, rector, php-cs-fixer, phpstan and phpunit — in that order, aborting on
-the first failure. Each step only runs when its tool and configuration are present in the project the script is invoked
-in, so the same script serves projects with different setups.
+It runs composer normalize, composer validate, rector, php-cs-fixer, phpstan, phpunit and npm build — in that order,
+aborting on the first failure. The tool steps run through the project's composer script definitions (`rector-fix`,
+`cs-fix`, `phpstan`, `phpunit`), so a step only runs when the project defines the matching script — and that definition
+controls the exact command, config and flags. The same script therefore serves projects with different setups.
 
 ## Development
 
@@ -56,7 +57,7 @@ same commands work from PowerShell/cmd on Windows):
 
 ```shell
 ./develop up -d --build  # build + start the container
-./develop install        # composer install
+./develop checkout       # composer install
 ./develop cqa            # run the code quality assurance gate
 ./develop help           # list all commands
 ```
